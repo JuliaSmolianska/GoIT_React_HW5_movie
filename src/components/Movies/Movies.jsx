@@ -42,6 +42,9 @@ const Movies = () => {
             query,
             controller
           );
+          if (isRequestCancelled) {
+            return;
+          }
           setSearchResults(movies.results);
           if (!movies.results.length) {
             toast.error(
