@@ -45,6 +45,9 @@ const Movies = () => {
           if (isRequestCancelled) {
             return;
           }
+          if (isRequestCancelled) {
+            return;
+          }
           setSearchResults(movies.results);
           if (!movies.results.length) {
             toast.error(
@@ -65,7 +68,7 @@ const Movies = () => {
     } else {
       setSearchResults([]);
     }
-  }, [query, buttonClick]);
+  }, [query, buttonClick, isRequestCancelled]);
 
   const handleSearchSubmit = evt => {
     evt.preventDefault();
