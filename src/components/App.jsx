@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom';
 import { StyledLink } from './linkStyled';
 import css from './App.module.css'
 
-
 const Home = lazy(() => import('./Home/Home'));
 const Movies = lazy(() => import('./Movies/Movies'));
 const MovieDetails = lazy(() => import('./MovieDetails/MovieDetails'));
