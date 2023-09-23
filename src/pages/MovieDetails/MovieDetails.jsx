@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { fetchMovies } from 'fetchAPI';
 import { Loader } from 'components/Loader';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import css from './MovieDetails.module.css';
 
 const MovieDetails = () => {
@@ -10,6 +9,12 @@ const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+
+  const defaultImg =
+    'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
+
+  const location = useLocation();
+  const backLink = useRef(location.state?.from ?? '/movies');
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -41,9 +46,17 @@ const MovieDetails = () => {
         error('Something went wrong, please try reloading the page', {
           duration: 5000,
         })}
+      <Link to={backLink.current}>
+        {' '}
+        <button> Go Back </button>{' '}
+      </Link>
       <div className={css.details}>
         <img
-          src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+          src={
+            movie.poster_path
+              ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+              : defaultImg
+          }
           alt={movie.original_title}
           width={250}
         />
@@ -71,7 +84,9 @@ const MovieDetails = () => {
           <Link to="reviews">Reviews</Link>
         </li>
       </ul>
-      <Outlet />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 };

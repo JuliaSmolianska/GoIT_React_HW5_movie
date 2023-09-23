@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchMovies } from '../../fetchAPI';
 import { Loader } from 'components/Loader';
-import { StyledLinkList } from '../linkStyled';
+import { StyledLinkList } from '../../components/linkStyled';
 
 const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -34,15 +34,13 @@ const Home = () => {
         })}
       <h1>Trending Movies</h1>
       <ul>
-        {trendingMovies
-          .filter(movie => movie.title !== '' || movie.name !== '')
-          .map(movie => (
-            <li key={movie.id}>
-              <StyledLinkList to={`/movies/${movie.id}`}>
-                {movie.title || movie.name}
-              </StyledLinkList>
-            </li>
-          ))}
+        {trendingMovies.map(movie => (
+          <li key={movie.id}>
+            <StyledLinkList to={`/movies/${movie.id}`}>
+              {movie.title || movie.name || movie.original_title}
+            </StyledLinkList>
+          </li>
+        ))}
       </ul>
     </div>
   );

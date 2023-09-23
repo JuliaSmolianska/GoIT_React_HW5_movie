@@ -29,5 +29,6 @@ export async function fetchSearchMovies(endpoint, query, controller) {
       signal: controller.current.signal,
     }
   );
+
   return response.data;
 }
