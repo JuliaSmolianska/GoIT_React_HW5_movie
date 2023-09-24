@@ -1,0 +1,18 @@
+.menuBox {
+  background: linear-gradient(#8731c1, #23a6d5);
+  overflow: hidden;
+}
+
+.menuButton {
+  padding: 10px 20px;
+  background: transparent;
+  overflow: hidden;
+  color: aliceblue;
+  font-size: larger;
+  margin-left: 20px;
+  border: none;
+}
+.menuButton:hover,
+.menuButton:focus {
+  background: #e73c7e;
+}

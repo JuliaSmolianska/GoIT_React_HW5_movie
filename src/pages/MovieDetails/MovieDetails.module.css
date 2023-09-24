@@ -1,12 +1,16 @@
+.buttonBack {
+margin-left: 30px;
+margin-top: 20px;
+}
 .details {
   display: flex;
   font-size: larger;
 }
- img {
+.details img {
   margin: 5px 20px 5px 10px;
- }
+}
 
- .cast li,
- .review li {
+.cast li,
+.review li {
   list-style-type: none;
 }

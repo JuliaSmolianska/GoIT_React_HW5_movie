@@ -4,10 +4,9 @@ import toast, { Toaster } from 'react-hot-toast';
 import { fetchSearchMovies } from 'fetchAPI';
 import { Loader } from 'components/Loader';
 import MoviesList from './MoviesList';
-import SearchBox from 'components/SearchBox';
+import SearchBox from 'components/SearchBox/SearchBox';
 
 const Movies = () => {
-  // const [query, setQuery] = useState('');
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
@@ -73,13 +72,7 @@ const Movies = () => {
           duration: 5000,
         })}
       <SearchBox onSubmit={handleSearchSubmit} />
-      {loading ? (
-        <Loader />
-      ) : (
-        <ul>
-          <MoviesList movies={movies} />
-        </ul>
-      )}
+      {loading ? <Loader /> : <MoviesList movies={movies} />}
       <Toaster position="top-right" />
     </div>
   );

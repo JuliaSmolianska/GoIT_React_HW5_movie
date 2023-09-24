@@ -1,18 +1,17 @@
-import React, { useState, useEffect, useRef, Suspense } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { fetchMovies } from 'fetchAPI';
 import { Loader } from 'components/Loader';
-import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
-import css from './MovieDetails.module.css';
+import { Link, useParams, useLocation } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import MovieDetailsData from './MovieDetailsData';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-
-  const defaultImg =
-    'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
-
   const location = useLocation();
   const backLink = useRef(location.state?.from ?? '/movies');
 
@@ -43,50 +42,20 @@ const MovieDetails = () => {
     <div>
       {error &&
         !loading &&
-        error('Something went wrong, please try reloading the page', {
+        toast.error('Something went wrong, please try reloading the page', {
           duration: 5000,
         })}
+      {loading && <Loader />}
       <Link to={backLink.current}>
-        {' '}
-        <button> Go Back </button>{' '}
+        <Button
+          variant="secondary"
+          className="ms-3 ps-3 pe-3 mt-2 bg-transparent border border-white"
+        >
+          &#171; Go Back
+        </Button>
       </Link>
-      <div className={css.details}>
-        <img
-          src={
-            movie.poster_path
-              ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-              : defaultImg
-          }
-          alt={movie.original_title}
-          width={250}
-        />
-        <div>
-          <h2>
-            {movie.title} ({movie.release_date.slice(0, 4)})
-          </h2>
-          <p>User score: {(movie.vote_average * 10).toFixed(0)}% </p>
-          <b>Overview</b>
-          <p>{movie.overview}</p>
-          <b> Genres</b>
-          <p>
-            {movie.genres.map(({ id, name }) => (
-              <span key={id}>{name} </span>
-            ))}
-          </p>
-        </div>
-      </div>
-      <h3>Additional information:</h3>
-      <ul>
-        <li>
-          <Link to="cast">Cast</Link>
-        </li>
-        <li>
-          <Link to="reviews">Reviews</Link>
-        </li>
-      </ul>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Outlet />
-      </Suspense>
+      <MovieDetailsData movie={movie} />
+      <Toaster position="top-right" />
     </div>
   );
 };

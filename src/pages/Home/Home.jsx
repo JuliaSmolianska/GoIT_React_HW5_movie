@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { fetchMovies } from '../../fetchAPI';
 import { Loader } from 'components/Loader';
-import { StyledLinkList } from '../../components/linkStyled';
+import toast, { Toaster } from 'react-hot-toast';
+import MoviesList from '../Movies/MoviesList';
+import css from './Home.module.css';
 
 const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -25,23 +27,15 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
-      {loading && <Loader />}
+    <div className={css.title}>
       {error &&
         !loading &&
-        error('Something went wrong, please try reloading the page', {
+        toast.error('Something went wrong, please try reloading the page', {
           duration: 5000,
         })}
-      <h1>Trending Movies</h1>
-      <ul>
-        {trendingMovies.map(movie => (
-          <li key={movie.id}>
-            <StyledLinkList to={`/movies/${movie.id}`}>
-              {movie.title || movie.name || movie.original_title}
-            </StyledLinkList>
-          </li>
-        ))}
-      </ul>
+      <h2>Trending Movies</h2>
+      {loading ? <Loader /> : <MoviesList movies={trendingMovies} />}
+      <Toaster position="top-right" />
     </div>
   );
 };

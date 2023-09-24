@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BiSearch } from 'react-icons/bi';
-import css from '../pages/Movies/Movies.module.css';
+import css from './SearchBox.module.css';
 
 const SearchBox = ({ onSubmit }) => {
   const [searchParams] = useSearchParams();

@@ -10,7 +10,7 @@ export const StyledLink = styled(NavLink)`
   line-height: 1.5;
 
   &.active {
-    color: brown;
+    color: blue;
   }
 
   &:hover {
@@ -21,12 +21,10 @@ export const StyledLink = styled(NavLink)`
 export const StyledLinkList = styled(NavLink)`
   text-decoration: none;
   padding: 10px;
-  color: black;
- 
-  line-height: 1.5;
+  color: white;
 
   &.active {
-    color: brown;
+    color: blue;
   }
 
   &:hover {
